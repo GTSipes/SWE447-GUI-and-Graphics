@@ -10,7 +10,7 @@ function init() {
         return;
     }
 
-    gl.clearColor( 1.0, 0.5, 0.75, 1.0 );
+    gl.clearColor( 1.0, 1.0, 0.5, 1.0 );
 
     render();
 }
