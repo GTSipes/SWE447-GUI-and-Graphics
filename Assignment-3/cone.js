@@ -10,8 +10,8 @@ function init() {
         return;
     }
 
-	gl.clearColor( 1.0, 0.0, 1.0, 1.0 );
-	cone = new Cone( gl, 8);
+	gl.clearColor( 0.0, 0.0, 1.0, 1.0 );
+	cone = new Cone( gl );
     render();
 }
 
