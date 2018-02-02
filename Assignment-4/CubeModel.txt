@@ -1,18 +1,29 @@
-1. this.positions.values(
-Vertex 0: 0.0, 0.0, 0.0
-Vertex 1: 1.0, 0.0, 0.0
-Vertex 2: 1.0, 1.0, 0.0
-Vertex 3: 0.0, 1.0, 0.0
-Vertex 4: 0.0, 0.0, 1.0
-Vertex 5: 1.0, 0.0, 1.0
-Vertex 6: 0.0, 1.0, 1.0
-Vertex 7: 1.1, 1.1, 1.1
- )//do code version later
-2. this.indices(
-Triangle 0: v0,v1,v2
-Triangle 1: v2,v0,v3 
-Triangle 2: v3, v2, v6
-Triangle 3: v6, v2, v7
-Triangle 4: v7, v2, v5
-Triangle 5: v5, v2, v1
-)
+1. 
+
+function Cube() {
+	this.count = 8;
+	
+	this.positions = (
+		values : new Float32Array([
+		0.0, 0.0, 0.0,
+		1.0, 0.0, 0.0,
+		1.0, 1.0, 0.0,
+		0.0, 1.0, 0.0,
+		0.0, 0.0, 1.0,
+		1.0, 0.0, 1.0,
+		0.0, 1.0, 1.0,
+		1.1, 1.1, 1.1,
+	])
+ };
+2. 
+
+this.indices = (
+	values : new Float32Array([
+	0, 1, 2,
+	2, 0, 3,
+	3, 2, 6,
+	6, 2, 7,
+	7, 2, 5,
+	5, 2, 1,
+	])
+};
