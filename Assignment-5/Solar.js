@@ -156,7 +156,7 @@ function render() {
   
   ms.push();
   ms.rotate((1/data.year)*time, [0,0,1]);
-  ms.translate((data.distance * 15), 0, 0);
+  ms.translate((data.distance * 20), 0, 0);
   ms.scale((data.radius*5));
   gl.useProgram(planet.program);
   gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
@@ -174,7 +174,7 @@ function render() {
   
   ms.push();
   ms.rotate((1/data.year)*time, [0,0,1]);
-  ms.translate((data.distance * 10), 0, 0);
+  ms.translate((data.distance * 13), 0, 0);
   ms.scale((data.radius));
   gl.useProgram(planet.program);
   gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
@@ -193,7 +193,7 @@ function render() {
   
   ms.push();
   ms.rotate((1/data.year)*time, [0,0,1]);
-  ms.translate((data.distance * 10), 0, 0);
+  ms.translate((data.distance * 15), 0, 0);
   ms.push();
   ms.scale(data.radius);
   gl.useProgram(planet.program);
@@ -230,7 +230,7 @@ function render() {
   
   ms.push();
   ms.rotate((1/data.year)*time, [0,0,1]);
-  ms.translate((data.distance * 10), 0, 0);
+  ms.translate((data.distance * 14), 0, 0);
   ms.scale(data.radius);
   gl.useProgram(planet.program);
   gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
@@ -248,7 +248,7 @@ function render() {
   
   ms.push();
   ms.rotate((1/data.year)*time, [0,0,1]);
-  ms.translate((data.distance * 5), 0, 0);
+  ms.translate((data.distance * 6), 0, 0);
   ms.scale((data.radius/7));
   gl.useProgram(planet.program);
   gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
@@ -285,7 +285,7 @@ function render() {
   ms.push();
   ms.rotate((1/data.year)*time, [0,0,1]);
   ms.translate((data.distance * 2.5), 0, 0);
-  ms.scale((data.radius/7));
+  ms.scale((data.radius/4));
   gl.useProgram(planet.program);
   gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
   gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
@@ -302,8 +302,8 @@ function render() {
   
   ms.push();
   ms.rotate((1/data.year)*time, [0,0,1]);
-  ms.translate((data.distance * 1.5), 0, 0);
-  ms.scale((data.radius/3));
+  ms.translate((data.distance * 1.8), 0, 0);
+  ms.scale((data.radius/4));
   gl.useProgram(planet.program);
   gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
   gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
@@ -312,16 +312,16 @@ function render() {
   ms.pop();
   
   //Neptune
-  nameNeptune = "Neptune";
-  planet = Planets[nameNeptune];
-  data = SolarSystem[nameNeptune];
+  namePluto = "Pluto";
+  planet = Planets[namePluto];
+  data = SolarSystem[namePluto];
   
   planet.PointMode = false;
   
   ms.push();
   ms.rotate((1/data.year)*time, [0,0,1]);
-  ms.translate((data.distance*2), 0, 0);
-  ms.scale(data.radius/5);
+  ms.translate((data.distance*1.5), 0, 0);
+  ms.scale(data.radius*2);
   gl.useProgram(planet.program);
   gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
   gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
