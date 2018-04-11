@@ -58,15 +58,28 @@
 			
 			//PLANETS//
 			var geometry = new THREE.SphereGeometry( .5,32,32 );
-			var material = new THREE.MeshPhongMaterial();
-			
-			material.map = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Earth/earthmap1k.jpg');
-			material.bumpMap = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Earth/earthbump1k.jpg');
-			material.bumpScale = 0.05;
-			
+			var material = new THREE.MeshPhongMaterial({
+				map			: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Earth/earthmap1k.jpg'),
+				bumpMap		: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Earth/earthbump1k.jpg'),
+				bumpScale	:  0.5,
+				specularMap : loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Earth/earthspec1k.jpg'),
+				specular 	: new THREE.Color('grey'),
+			});
 			var earthMesh = new THREE.Mesh( geometry, material );
 			
 			scene.add( earthMesh );
+			
+			var cloudGeometry = new THREE.SphereGeometry(.52, 32, 32);
+			var cloudMaterial = new THREE.MeshPhongMaterial({
+				map		: loader.load('');
+				side 	: THREE.DoubleSide,
+				opacity	: 0.8,
+				transparent : true,
+				depthWrite : false,
+			});
+			var cloudMesh = new THREE.Mesh(cloudGeometry, cloudMaterial);
+			earthMesh.add(cloudMesh);
+			
 			
 			//var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 			//var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
