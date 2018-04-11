@@ -24,30 +24,9 @@
 			var loader = new THREE.TextureLoader();
 			var renderer = new THREE.WebGLRenderer();
 			
-			var backgroundMesh;
-			var backgroundScene;
-			var backgroundCamera;
-			
-			//BACKGROUND//
-			loader.load("https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/master/Final%20Project/Background.png", function(texture){
-				backgroundMesh = new THREE.Mesh(
-				new THREE.PlaneGeometry(2,2,0),
-					new THREE.MeshBasicMaterial({
-					map: texture
-					})
-				);
-				backgroundMesh.material.depthTest = false;
-				backgroundMesh.material.depthWrite = false;
-				
-				backgroundScene = new THREE.Scene();
-				backgroundCamera = new THREE.Camera();
-				backgroundScene.add(backgroundCamera);
-				backgroundScene.add(backgroundMesh);
-			});
-			
 			//RENDERER//
 
-			renderer.autoClear = false;
+			//renderer.autoClear = false;
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 			
@@ -62,11 +41,20 @@
 			//var sunMesh = new THREE.Mesh( geometry, material );
 			//scene.add( sunMesh );
 
+			//STARS//
+			var starGeometry = new THREE.SphereGeometry(90, 32, 32);
+			var starMaterial = new THREE.MeshBasicMaterial();
+			starMaterial.map = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Stars.png');
+			var starMesh = new THREE.Mesh(starGeometry, starMaterial);
+			starMaterial = THREE.BackSide;
+			scene.add(starMesh);
+			
+			//PLANETS//
 			var geometry = new THREE.SphereGeometry( .5,32,32 );
-			var material = new THREE.MeshPhongMaterial();
-			//var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			//var material = new THREE.MeshPhongMaterial();
+			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 			var earthMesh = new THREE.Mesh( geometry, material );
-			material.map = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/master/Final%20Project/PlanetImages/Earth/earthmap1k.jpg');
+			//material.map = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/master/Final%20Project/PlanetImages/Earth/earthmap1k.jpg');
 			
 			//material.bumpMap = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/master/Final%20Project/PlanetImages/Earth/earthbump1k.jpg');
 			scene.add( earthMesh );
@@ -88,8 +76,6 @@
 
 				controls.update;
 
-				renderer.clear();
-				renderer.render(backgroundScene,backgroundCamera);
 				renderer.render(scene, camera);
 			};
 
