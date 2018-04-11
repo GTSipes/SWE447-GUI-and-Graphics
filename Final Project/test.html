@@ -35,7 +35,14 @@
 			var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 1000 );
 			var controls = new THREE.OrbitControls( camera );
 			camera.position.set(0,20,100);
-			controls.update();
+			controls.update
+			
+			var ambLight = new THREE.AmbientLight(0xcccccc);
+			scene.add(ambLight);
+			
+			//var directLight = new THREE.DirectionalLight(0xcccccc);
+			//directLight.position.set(5,3,5);
+			//scene.add(directLight);
 			//var geometry = new THREE.SphereGeometry( .5, 32,32 );
 			//var material = new THREE.MeshPhongMaterial();
 			//var sunMesh = new THREE.Mesh( geometry, material );
@@ -51,12 +58,14 @@
 			
 			//PLANETS//
 			var geometry = new THREE.SphereGeometry( .5,32,32 );
-			//var material = new THREE.MeshPhongMaterial();
-			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			var earthMesh = new THREE.Mesh( geometry, material );
-			//material.map = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/master/Final%20Project/PlanetImages/Earth/earthmap1k.jpg');
+			var material = new THREE.MeshPhongMaterial();
 			
-			//material.bumpMap = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/master/Final%20Project/PlanetImages/Earth/earthbump1k.jpg');
+			material.map = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Earth/earthmap1k.jpg');
+			material.bumpMap = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Earth/earthbump1k.jpg');
+			material.bumpScale = 0.05;
+			
+			var earthMesh = new THREE.Mesh( geometry, material );
+			
 			scene.add( earthMesh );
 			
 			//var geometry = new THREE.BoxGeometry( 1, 1, 1 );
