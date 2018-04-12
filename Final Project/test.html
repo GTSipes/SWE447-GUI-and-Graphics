@@ -44,7 +44,7 @@
 			//directLight.position.set(5,3,5);
 			//scene.add(directLight);
 
-			//STARS//
+			//STARS//------------------------------------------------
 			var starGeometry = new THREE.SphereGeometry(90, 32, 32);
 			var starMaterial = new THREE.MeshBasicMaterial();
 			starMaterial.map = loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Stars.png');
@@ -54,7 +54,7 @@
 			scene.add(starMesh);
 			
 			
-			//SUN//
+			//SUN//------------------------------------------------
 			var sunGeometry = new THREE.SphereGeometry( 5, 32,32 );
 			var sunMaterial = new THREE.MeshPhongMaterial({
 				map: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Sun/sunmap.jpg'),
@@ -64,19 +64,29 @@
 			
 			
 			//PLANETS//
-				//MERCURY//
+				//MERCURY//------------------------------------------------
 			var mercuryGeometry = new THREE.SphereGeometry(.3,32,32);
 			var mercuryMaterial = new THREE.MeshPhongMaterial({
-				map			:	loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Mercury/mercurymap.jpg'),
-				bumpMap		:	loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Mercury/mercurybump.jpg'),
-				bumpScale 	:	2,
+				map			: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Mercury/mercurymap.jpg'),
+				bumpMap		: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Mercury/mercurybump.jpg'),
+				bumpScale 	: 2,
 			});
 			var mercuryMesh = new THREE.Mesh(mercuryGeometry,mercuryMaterial);
 			scene.add(mercuryMesh);
 			mercuryMesh.translateX(-7);
 			
-				//VENUS//
-				//EARTH//
+				//VENUS//------------------------------------------------
+			var venusGeometry = new THREE.SphereGeometry(.4,32,32);
+			var venusMaterial = new THREE.MeshPhongMaterial({
+				map			: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Venus/venusmap.jpg');
+				bumpMap		: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Venus/venusbump.jpg');
+				bumpScale	: 2;
+				});
+			var venusMesh = new THREE.Mesh(venusGeometry,venusMaterial);
+			scene.add(venusMesh);
+			venusMesh.translateX(-8);
+				
+				//EARTH//------------------------------------------------
 			var earthGeometry = new THREE.SphereGeometry( .5,32,32 );
 			var earthMaterial = new THREE.MeshPhongMaterial({
 				map			: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Earth/earthmap1k.jpg'),
@@ -92,7 +102,7 @@
 			var cloudMaterial = new THREE.MeshPhongMaterial({
 				map		: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Earth/earthalpha.jpg'),
 				side 	: THREE.DoubleSide,
-				opacity	: 0.3,
+				opacity	: 0.35,
 				transparent : true,
 				depthWrite : false,
 			});
@@ -100,14 +110,68 @@
 			earthMesh.add(cloudMesh);
 			earthMesh.translateX(-12);
 				
-				//MOON//
-			//var geometry = new THREE.SphereGeometry( .5, 32,32 );
-			//var material = new THREE.MeshPhongMaterial();
-			//var moonMesh = new THREE.Mesh( geometry, material );
-			//scene.add( moonMesh );
+				//MOON//------------------------------------------------
+			var moonGeometry = new THREE.SphereGeometry( .15, 32,32 );
+			var moonMaterial = new THREE.MeshPhongMaterial({
+				map			: loader.load();
+				bumpMap		: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Moon/moonbump4k.jpg');
+				bumpScale	: 2;
+				});
+			var Mesh = new THREE.Mesh( geometry, material );
+			scene.add( moonMesh );
+			moonMesh.translateX(-12.5);
 
-			//MARS//
+				//MARS//------------------------------------------------
+			var marsGeometry = new THREE.SphereGeometry( .5, 32,32 );
+			var marsMaterial = new THREE.MeshPhongMaterial({
+				map			: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Mars/mars_1k_color.jpg');
+				normalMap	: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Mars/mars_1k_normal.jpg');
+				normalScale	: 2;
+				});
+			var marsMesh = new THREE.Mesh( geometry, material );
+			scene.add( marsMesh );
 			
+				//JUPITER//------------------------------------------------
+			var jupiterGeometry = new THREE.SphereGeometry( .5, 32,32 );
+			var jupiterMaterial = new THREE.MeshPhongMaterial({
+				map			: loader.load('https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/Final-Project-Work/Final%20Project/PlanetImages/Jupiter/jupitermap.jpg');
+				});
+			var jupiterMesh = new THREE.Mesh( geometry, material );
+			scene.add( jupiterMesh );
+
+				//SATURN//------------------------------------------------
+			var saturnGeometry = new THREE.SphereGeometry( .5, 32,32 );
+			var saturnMaterial = new THREE.MeshPhongMaterial({
+				map			: loader.load();
+				});
+			var Mesh = new THREE.Mesh( geometry, material );
+			scene.add( saturnMesh );
+				
+				//URANUS//------------------------------------------------
+			var uranusGeometry = new THREE.SphereGeometry( .5, 32,32 );
+			var uranusMaterial = new THREE.MeshPhongMaterial({
+				map			: loader.load();
+				});
+			var uranusMesh = new THREE.Mesh( geometry, material );
+			scene.add( uranusMesh );
+				
+				//NEPTUNE//------------------------------------------------
+			var neptuneGeometry = new THREE.SphereGeometry( .5, 32,32 );
+			var neptuneMaterial = new THREE.MeshPhongMaterial({
+				map			: loader.load();
+				});
+			var neptuneMesh = new THREE.Mesh( geometry, material );
+			scene.add( neptuneMesh );
+				
+				//PLUTO//------------------------------------------------
+			var plutoGeometry = new THREE.SphereGeometry( .5, 32,32 );
+			var plutoMaterial = new THREE.MeshPhongMaterial({
+				map			: loader.load();
+				bumpMap		: loader.load();
+				bumpScale	: 2;
+				});
+			var plutoMesh = new THREE.Mesh(geometry, material);
+			scene.add(plutoMesh);
 			
 			//RENDER//
 			camera.position.z = 5;
@@ -117,8 +181,18 @@
 
 				controls.update;
 				sunMesh.rotation.y+= 0.005;
+				mercuryMesh.rotation.y += 0.01;
+				venusMesh.rotation.y += 0.01;
 				earthMesh.rotation.y += 0.01;
 				cloudMesh.rotation.y += 0.001;
+				moonMesh.rotation.y += 0.01;
+				marsMesh.rotation.y += 0.01;
+				jupiterMesh.rotation.y += 0.01;
+				saturnMesh.rotation.y += 0.01;
+				uranusMesh.rotation.y += 0.01;
+				neptuneMesh.rotation.y += 0.01;
+				plutoMesh.rotation.y += 0.01;
+				
 				renderer.render(scene, camera);
 			};
 
