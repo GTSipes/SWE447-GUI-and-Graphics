@@ -14,11 +14,11 @@ function init()
     return;
   }
 
-  gl.clearColor( 0, 0.8, 0.8, 1.0 );
+  gl.clearColor( 1, 1, 1, 1.0 );
   gl.enable( gl.DEPTH_TEST );
 
   cube = new Cube();
-  texture = getTexture("CubeTexture.png");
+  texture = getTexture("https://raw.githubusercontent.com/GTSipes/SWE447-GUI-and-Graphics/master/Assignment-4/CubeTexture.PNG");
   render();
 }
 
@@ -27,7 +27,7 @@ function render()
   if (texture && texture.webglTexture) 
   {
       gl.activeTexture(gl.TEXTURE0);
-      gl.bindTexture(gl.TEXTURE_2D, cube_texture.webglTexture);
+      gl.bindTexture(gl.TEXTURE_2D, texture.webglTexture);
   }
 	
   gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
