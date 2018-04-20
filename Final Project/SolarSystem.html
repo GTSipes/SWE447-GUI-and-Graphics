@@ -38,8 +38,14 @@
 			controls.update();
 			
 			//Lighting
-			var ambLight = new THREE.AmbientLight(0xcccccc);
+			var ambLight = new THREE.AmbientLight(0xffffff, .1);
 			scene.add(ambLight);
+			
+			var pointLight = new THREE.PointLight(0xffffff, 2, 400, 2);
+			pointLight.position.set(0,0,0);
+			pointLight.castShadow = true;
+			scene.add(pointLight);
+			
 			
 			//var directLight = new THREE.DirectionalLight(0xcccccc);
 			//directLight.position.set(5,3,5);
@@ -51,20 +57,21 @@
 			starMaterial.map = loader.load('https://i.imgur.com/Mm4SUEm.jpg');
 			starMaterial.side = THREE.BackSide;
 			var starMesh = new THREE.Mesh(starGeometry, starMaterial);
-			
 			scene.add(starMesh);
-			
 			
 			//SUN//------------------------------------------------
 			var sunGeometry = new THREE.SphereGeometry( 50, 100,100 );
 			var sunMaterial = new THREE.MeshPhongMaterial({
 				map		:	loader.load('https://i.imgur.com/Nwwy6bJ.jpg'),
-				emissive:	0xffff66,
-				emissiveIntensity : 0.4,
+				emissive:	0xffffff,
+				emissiveMap:	loader.load('https://i.imgur.com/Nwwy6bJ.jpg'),
+				emissiveIntensity : 1,
 			});
 			var sunMesh = new THREE.Mesh( sunGeometry, sunMaterial );
 			scene.add(sunMesh);
-			
+			pointLight.add(sunMesh);
+			sunMesh.castShadow = true;
+
 			//PLANETS//
 			var mercuryPivot = new THREE.Object3D();
 			sunMesh.add(mercuryPivot);
