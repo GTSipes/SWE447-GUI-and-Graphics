@@ -3,10 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Solar System WebGL Model</title>
-  <style>
-  body {margin: 0;}
-  canvas {width: 100%; height: 100% }
-  </style>
 </head>
 
 <body>
@@ -15,12 +11,59 @@
   <script src="../Common/three.js"></script>
   <script src="../Common/OrbitControls.js"></script>
   <script src="../Common/threex.planets-master/threex.planets.js"></script>
+  <div class"=slidecontainer">
+  <input type="range" min = "0" max="0.1" value="0.01" step="0.001" id="speedSlider" orient="vertical" style="position:absolute">
+  <span id="sliderSpeed"></span>
+  </div>
+    <style>
+  body {margin: 0;}
+  canvas {width: 100%; height: 100% }
+  #speedSlider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;   
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+#speedSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+#speedSlider:hover{
+	opacity:1;
+}
+
+#speedSlider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+  </style>
   <script>
 			//STARTING VARIABLES//
 			var scene = new THREE.Scene();
 			var loader = new THREE.TextureLoader();
 			var renderer = new THREE.WebGLRenderer();
+			var slider = document.getElementById("speedSlider");
+			var output = document.getElementById("sliderSpeed");
+			//output.innerHTML = slider.value;
 			
+			//slider.oninput = function() {output.innerHTML = this.value;}
+			slider.addEventListener("input", adjustSpeed);
 
 			//renderer.autoClear = false;
 			renderer.setSize( window.innerWidth, window.innerHeight );
@@ -28,8 +71,8 @@
 			
 			
 			//CAMERA STUFF//
-			var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 1000 );
-			var controls = new THREE.OrbitControls( camera );
+			var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1, 1000);
+			var controls = new THREE.OrbitControls(camera, renderer.domElement);
 			camera.position.set(100,100,0);
 			controls.keyPanSpeed = 25;
 			controls.minZoom = 10;
@@ -38,7 +81,7 @@
 			controls.update();
 			
 			//Lighting
-			var ambLight = new THREE.AmbientLight(0xffffff, .1);
+			var ambLight = new THREE.AmbientLight(0xffffff, 0.1);
 			scene.add(ambLight);
 			
 			var pointLight = new THREE.PointLight(0xffffff, 2, 400, 2);
@@ -64,7 +107,7 @@
 			});
 			var sunMesh = new THREE.Mesh( sunGeometry, sunMaterial );
 			scene.add(sunMesh);
-			pointLight.add(sunMesh);
+			//pointLight.add(sunMesh);
 			sunMesh.castShadow = true;
 
 			//PLANETS//
@@ -140,7 +183,7 @@
 			earthMesh.add(moonPivot);
 			var moonGeometry = new THREE.SphereGeometry( .135, 100,100 ); //.135
 			var moonMaterial = new THREE.MeshPhongMaterial({
-				map			: loader.load('https://i.imgur.com/StysKgS.jpg'),
+				map			: loader.load('https://i.imgur.com/0uj9cX5.jpg'),
 				bumpMap		: loader.load('https://i.imgur.com/EGlQBhL.jpg'),
 				bumpScale	: .5,
 				});
@@ -154,7 +197,7 @@
 
 				//MARS//------------------------------------------------
 			var marsPivot = new THREE.Object3D();
-			sunMesh.add(marsPivot)
+			sunMesh.add(marsPivot);
 			var marsGeometry = new THREE.SphereGeometry( .532, 100,100 );
 			var marsMaterial = new THREE.MeshPhongMaterial({
 				map			: loader.load('https://i.imgur.com/Sros0Yt.jpg'),
@@ -166,16 +209,30 @@
 			marsMesh.position.x = -90;
 			marsPivot.add(marsMesh);
 			
+				//ASTEROID BELT//
+			var asteroidPivot = new THREE.Object3D();
+			sunMesh.add(asteroidPivot);
+			var asteroidGeometry = new THREE.RingGeometry(100, 200, 200, 200);
+			var asteroidMaterial = new THREE.MeshBasicMaterial({
+				map			: loader.load('https://i.imgur.com/xcv4qfP.png'),
+				side		: THREE.DoubleSide,
+				transparent	: true,
+				opacity		: 1,
+			});
+			var asteroidMesh = new THREE.Mesh(asteroidGeometry,asteroidMaterial);
+			scene.add(asteroidMesh);
+			asteroidMesh.rotateX(1.5708);
+			
 				//JUPITER//------------------------------------------------
 			var jupiterPivot = new THREE.Object3D();
 			sunMesh.add(jupiterPivot)
-			var jupiterGeometry = new THREE.SphereGeometry( 11.2, 100,100 );
+			var jupiterGeometry = new THREE.SphereGeometry( 11.2, 100,75 );
 			var jupiterMaterial = new THREE.MeshPhongMaterial({
 				map			: loader.load('https://i.imgur.com/MD69jnh.jpg'),
 				});
 			var jupiterMesh = new THREE.Mesh( jupiterGeometry, jupiterMaterial );
 			scene.add( jupiterMesh );
-			jupiterMesh.position.x = -115;
+			jupiterMesh.position.x = -200;
 			jupiterPivot.add(jupiterMesh);
 
 				//SATURN//------------------------------------------------
@@ -197,9 +254,10 @@
 				});
 			var saturnRingMesh = new THREE.Mesh(saturnRingGeometry,saturnRingMaterial);
 			scene.add(saturnRingMesh);
+			saturnRingMesh.castShadow = true;
 			saturnRingMesh.rotateX(1.5708);
 			saturnMesh.add(saturnRingMesh);
-			saturnMesh.position.x = -170;
+			saturnMesh.position.x = -230;
 			saturnPivot.add(saturnMesh);
 				
 				//URANUS//------------------------------------------------
@@ -222,10 +280,11 @@
 				});
 			var uranusRingMesh = new THREE.Mesh(uranusRingGeometry,uranusRingMaterial);
 			scene.add(uranusRingMesh);
+			uranusRingMesh.castShadow = true;
 			uranusRingMesh.rotateX(1.5708);
 			uranusRingMesh.rotateY(1.5708);
 			uranusMesh.add(uranusRingMesh);
-			uranusMesh.position.x = -220;
+			uranusMesh.position.x = -260;
 			uranusPivot.add(uranusMesh);
 			
 				//NEPTUNE//------------------------------------------------
@@ -249,7 +308,7 @@
 			scene.add(neptuneRingMesh);
 			neptuneRingMesh.rotateX(1.5708);
 			neptuneMesh.add(neptuneRingMesh);
-			neptuneMesh.position.x = -240;
+			neptuneMesh.position.x = -280;
 			neptunePivot.add(neptuneMesh);
 				
 				//PLUTO//------------------------------------------------
@@ -265,51 +324,83 @@
 				});
 			var plutoMesh = new THREE.Mesh(plutoGeometry, plutoMaterial);
 			scene.add(plutoMesh);
-			plutoMesh.position.x = -260;
+			plutoMesh.position.x = -310;
 			plutoPivot.add(plutoMesh);
 
-			
+			function adjustSpeed(e){
+			var target = (e.target) ? e.target : e.srcElement;
+			rotationSpeed = target.value;
+			}
 			
 			//RENDER//
 			camera.position.z = 5;
-
+			var rotationSpeed = 0.01;
 			var animate = function () {
 				requestAnimationFrame( animate );
-
+		
 				controls.update;
+				
 				
 				sunMesh.rotation.y+= 0.0005;
 				
-				mercuryMesh.rotation.y += 0.01;
-				mercuryPivot.rotation.y += 0.005;
+				mercuryMesh.castShadow = true;
+				mercuryMesh.receiveShadow = true;
+				mercuryMesh.rotation.y += rotationSpeed;
+				mercuryPivot.rotation.y += rotationSpeed / 0.2;
 				
-				venusMesh.rotation.y += 0.01;
-				venusPivot.rotation.y += .0166;
+				venusMesh.castShadow = true;
+				venusMesh.receiveShadow = true;
+				venusMesh.rotation.y += rotationSpeed;
+				venusPivot.rotation.y += rotationSpeed/0.6;
 				
-				earthMesh.rotation.y += 0.01;
-				cloudMesh.rotation.y += 0.003;
-				earthPivot.rotation.y += .01;
+				earthMesh.castShadow = true;
+				earthMesh.receiveShadow = true;
+				earthMesh.rotation.y += rotationSpeed;
+				cloudMesh.rotation.y += rotationSpeed * 3;
+				earthPivot.rotation.y += rotationSpeed;
 				
-				moonMesh.rotation.y += 0.01;
-				moonPivot.rotation.y += 0.0001;
+				moonMesh.castShadow = true;
+				moonMesh.receiveShadow = true;
+				moonMesh.rotation.y += rotationSpeed;
+				moonPivot.rotation.y += rotationSpeed/100;
 				
-				marsMesh.rotation.y += 0.01;
-				marsPivot.rotation.y += .00526
+				marsMesh.castShadow = true;
+				marsMesh.receiveShadow = true;
+				marsMesh.rotation.y += rotationSpeed;
+				marsPivot.rotation.y += rotationSpeed/1.9;
 				
-				jupiterMesh.rotation.y += 0.01;
-				jupiterPivot.rotation.y += 0.00084;
+				asteroidMesh.rotation.z += -0.00001;
 				
-				saturnMesh.rotation.y += 0.01;
-				saturnPivot.rotation.y += 0.000339;
+				jupiterMesh.castShadow = true;
+				jupiterMesh.receiveShadow = true;
+				jupiterMesh.rotation.y += rotationSpeed;
+				jupiterPivot.rotation.y += rotationSpeed/11.9;
 				
-				uranusMesh.rotation.x += 0.01;
-				uranusPivot.rotation.y += 0.00012;
+				saturnMesh.castShadow = true;
+				saturnMesh.receiveShadow = true;
+				saturnRingMesh.castShadow = true;
+				saturnRingMesh.receiveShadow = true;
+				saturnMesh.rotation.y += rotationSpeed;
+				saturnPivot.rotation.y += rotationSpeed/29.5;
 				
-				neptuneMesh.rotation.y += 0.01;
-				neptunePivot.rotation.y += 0.0000607;
+				uranusMesh.castShadow = true;
+				uranusMesh.receiveShadow = true;
+				uranusRingMesh.castShadow = true;
+				uranusRingMesh.receiveShadow = true;
+				uranusMesh.rotation.y += rotationSpeed;
+				uranusPivot.rotation.y += rotationSpeed/84;
 				
-				plutoMesh.rotation.y += 0.01;
-				plutoPivot.rotation.y += 0.000035;
+				neptuneMesh.castShadow = true;
+				neptuneMesh.receiveShadow = true;
+				neptuneRingMesh.castShadow = true;
+				neptuneRingMesh.receiveShadow = true;
+				neptuneMesh.rotation.y += rotationSpeed;
+				neptunePivot.rotation.y += rotationSpeed/164.8;
+				
+				plutoMesh.castShadow = true;
+				plutoMesh.receiveShadow = true;
+				plutoMesh.rotation.y += rotationSpeed;
+				plutoPivot.rotation.y += rotationSpeed/248;
 				
 				
 				renderer.render(scene, camera);
