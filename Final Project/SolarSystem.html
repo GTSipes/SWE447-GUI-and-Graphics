@@ -12,7 +12,7 @@
   <script src="../Common/OrbitControls.js"></script>
   <script src="../Common/threex.planets-master/threex.planets.js"></script>
   <div class"=slidecontainer">
-  <input type="range" min = "0" max="0.1" value="0.01" step="0.001" id="speedSlider" orient="vertical" style="position:absolute">
+  <input type="range" min = "0" max="0.1" value="0.01" step="0.01" id="speedSlider" orient="vertical" style="position:absolute">
   <span id="sliderSpeed"></span>
   </div>
     <style>
@@ -52,6 +52,10 @@
     cursor: pointer;
 }
 
+#sliderSpeed{
+opacity: 1;
+}
+
   </style>
   <script>
 			//STARTING VARIABLES//
@@ -60,10 +64,15 @@
 			var renderer = new THREE.WebGLRenderer();
 			var slider = document.getElementById("speedSlider");
 			var output = document.getElementById("sliderSpeed");
-			//output.innerHTML = slider.value;
 			
-			//slider.oninput = function() {output.innerHTML = this.value;}
-			slider.addEventListener("input", adjustSpeed);
+			output.innerHTML = slider.value;
+			slider.oninput = function() {output.innerHTML = this.value;}
+			
+			var rotationSpeed = 0.01;
+			slider.addEventListener("change", function(){
+				rotationSpeed = slider.value;
+			});
+			
 
 			//renderer.autoClear = false;
 			renderer.setSize( window.innerWidth, window.innerHeight );
@@ -81,8 +90,8 @@
 			controls.update();
 			
 			//Lighting
-			var ambLight = new THREE.AmbientLight(0xffffff, 0.1);
-			scene.add(ambLight);
+			//var ambLight = new THREE.AmbientLight(0xffffff, 0.1);
+			//scene.add(ambLight);
 			
 			var pointLight = new THREE.PointLight(0xffffff, 2, 400, 2);
 			pointLight.position.set(0,0,0);
@@ -90,7 +99,7 @@
 			scene.add(pointLight);
 			
 			//STARS//------------------------------------------------
-			var starGeometry = new THREE.SphereGeometry(600, 100, 100);
+			var starGeometry = new THREE.SphereGeometry(700, 100, 100);
 			var starMaterial = new THREE.MeshBasicMaterial();
 			starMaterial.map = loader.load('https://i.imgur.com/Mm4SUEm.jpg');
 			starMaterial.side = THREE.BackSide;
@@ -232,7 +241,7 @@
 				});
 			var jupiterMesh = new THREE.Mesh( jupiterGeometry, jupiterMaterial );
 			scene.add( jupiterMesh );
-			jupiterMesh.position.x = -200;
+			jupiterMesh.position.x = -220;
 			jupiterPivot.add(jupiterMesh);
 
 				//SATURN//------------------------------------------------
@@ -257,7 +266,7 @@
 			saturnRingMesh.castShadow = true;
 			saturnRingMesh.rotateX(1.5708);
 			saturnMesh.add(saturnRingMesh);
-			saturnMesh.position.x = -230;
+			saturnMesh.position.x = -280;
 			saturnPivot.add(saturnMesh);
 				
 				//URANUS//------------------------------------------------
@@ -284,7 +293,7 @@
 			uranusRingMesh.rotateX(1.5708);
 			uranusRingMesh.rotateY(1.5708);
 			uranusMesh.add(uranusRingMesh);
-			uranusMesh.position.x = -260;
+			uranusMesh.position.x = -330;
 			uranusPivot.add(uranusMesh);
 			
 				//NEPTUNE//------------------------------------------------
@@ -308,7 +317,7 @@
 			scene.add(neptuneRingMesh);
 			neptuneRingMesh.rotateX(1.5708);
 			neptuneMesh.add(neptuneRingMesh);
-			neptuneMesh.position.x = -280;
+			neptuneMesh.position.x = -370;
 			neptunePivot.add(neptuneMesh);
 				
 				//PLUTO//------------------------------------------------
@@ -324,24 +333,19 @@
 				});
 			var plutoMesh = new THREE.Mesh(plutoGeometry, plutoMaterial);
 			scene.add(plutoMesh);
-			plutoMesh.position.x = -310;
+			plutoMesh.position.x = -400;
 			plutoPivot.add(plutoMesh);
-
-			function adjustSpeed(e){
-			var target = (e.target) ? e.target : e.srcElement;
-			rotationSpeed = target.value;
-			}
 			
 			//RENDER//
 			camera.position.z = 5;
-			var rotationSpeed = 0.01;
+			
 			var animate = function () {
 				requestAnimationFrame( animate );
 		
 				controls.update;
 				
 				
-				sunMesh.rotation.y+= 0.0005;
+				sunMesh.rotation.y+= rotationSpeed/20;
 				
 				mercuryMesh.castShadow = true;
 				mercuryMesh.receiveShadow = true;
