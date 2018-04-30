@@ -219,18 +219,43 @@ opacity: 1;
 			marsPivot.add(marsMesh);
 			
 				//ASTEROID BELT//
-			var asteroidPivot = new THREE.Object3D();
-			sunMesh.add(asteroidPivot);
-			var asteroidGeometry = new THREE.RingGeometry(100, 200, 200, 200);
-			var asteroidMaterial = new THREE.MeshBasicMaterial({
-				map			: loader.load('https://i.imgur.com/xcv4qfP.png'),
+			var asteroidPivot1 = new THREE.Object3D();
+			sunMesh.add(asteroidPivot1);
+			var asteroidGeometry1 = new THREE.RingGeometry(100, 200, 200, 200);
+			var asteroidMaterial1 = new THREE.MeshBasicMaterial({
+				map			: loader.load('https://i.imgur.com/GdjwhhA.jpg'),
 				side		: THREE.DoubleSide,
 				transparent	: true,
 				opacity		: 1,
 			});
-			var asteroidMesh = new THREE.Mesh(asteroidGeometry,asteroidMaterial);
-			scene.add(asteroidMesh);
-			asteroidMesh.rotateX(1.5708);
+			var asteroidMesh1 = new THREE.Mesh(asteroidGeometry1,asteroidMaterial1);
+			scene.add(asteroidMesh1);
+			asteroidMesh1.rotateX(1.5708);
+			asteroidPivot1.add(asteroidMesh1);
+			
+			var asteroidPivot2 = new THREE.Object3D();
+			sunMesh.add(asteroidPivot2);
+			var asteroidGeometry2 = new THREE.RingGeometry(100, 180, 200, 200);
+			var asteroidMaterial2 = new THREE.MeshBasicMaterial({
+				map			: loader.load('https://i.imgur.com/GdjwhhA.jpg'),
+				side		: THREE.DoubleSide,
+				transparent	: true,
+				opacity		: 1,
+			});
+			var asteroidMesh2 = new THREE.Mesh(asteroidGeometry2,asteroidMaterial2);
+			scene.add(asteroidMesh2);
+			asteroidMesh2.rotateX(1.5708);
+			asteroidMesh2.position.y = 15;
+			asteroidPivot2.add(asteroidMesh2);
+			
+			var asteroidPivot3 = new THREE.Object3D();
+			sunMesh.add(asteroidPivot3);
+			var asteroidMesh3 = new THREE.Mesh(asteroidGeometry2,asteroidMaterial2);
+			scene.add(asteroidMesh3);
+			asteroidMesh3.rotateX(1.5708);
+			asteroidMesh3.position.y = -15;
+			asteroidPivot3.add(asteroidMesh3);
+			
 			
 				//JUPITER//------------------------------------------------
 			var jupiterPivot = new THREE.Object3D();
@@ -349,62 +374,64 @@ opacity: 1;
 				
 				mercuryMesh.castShadow = true;
 				mercuryMesh.receiveShadow = true;
-				mercuryMesh.rotation.y += rotationSpeed;
-				mercuryPivot.rotation.y += rotationSpeed / 0.2;
+				mercuryMesh.rotation.y += rotationSpeed/2;
+				//mercuryPivot.rotation.y += rotationSpeed / 0.2;
 				
 				venusMesh.castShadow = true;
 				venusMesh.receiveShadow = true;
-				venusMesh.rotation.y += rotationSpeed;
-				venusPivot.rotation.y += rotationSpeed/0.6;
+				venusMesh.rotation.y += rotationSpeed/2;
+				//venusPivot.rotation.y += rotationSpeed/0.6;
 				
 				earthMesh.castShadow = true;
 				earthMesh.receiveShadow = true;
 				earthMesh.rotation.y += rotationSpeed;
 				cloudMesh.rotation.y += rotationSpeed * 3;
-				earthPivot.rotation.y += rotationSpeed;
+				//earthPivot.rotation.y += rotationSpeed;
 				
 				moonMesh.castShadow = true;
 				moonMesh.receiveShadow = true;
 				moonMesh.rotation.y += rotationSpeed;
-				moonPivot.rotation.y += rotationSpeed/100;
+				//moonPivot.rotation.y += rotationSpeed/100;
 				
 				marsMesh.castShadow = true;
 				marsMesh.receiveShadow = true;
 				marsMesh.rotation.y += rotationSpeed;
-				marsPivot.rotation.y += rotationSpeed/1.9;
+				//marsPivot.rotation.y += rotationSpeed/1.9;
 				
-				asteroidMesh.rotation.z += -0.00001;
+				asteroidMesh1.rotation.z += -0.00001;
+				asteroidMesh2.rotation.z += -0.00001;
+				asteroidMesh3.rotation.z += -0.00001;
 				
 				jupiterMesh.castShadow = true;
 				jupiterMesh.receiveShadow = true;
 				jupiterMesh.rotation.y += rotationSpeed;
-				jupiterPivot.rotation.y += rotationSpeed/11.9;
+				//jupiterPivot.rotation.y += rotationSpeed/11.9;
 				
 				saturnMesh.castShadow = true;
 				saturnMesh.receiveShadow = true;
 				saturnRingMesh.castShadow = true;
 				saturnRingMesh.receiveShadow = true;
-				saturnMesh.rotation.y += rotationSpeed;
-				saturnPivot.rotation.y += rotationSpeed/29.5;
+				saturnMesh.rotation.y += rotationSpeed/2;
+				//saturnPivot.rotation.y += rotationSpeed/29.5;
 				
 				uranusMesh.castShadow = true;
 				uranusMesh.receiveShadow = true;
 				uranusRingMesh.castShadow = true;
 				uranusRingMesh.receiveShadow = true;
-				uranusMesh.rotation.y += rotationSpeed;
-				uranusPivot.rotation.y += rotationSpeed/84;
+				uranusMesh.rotation.y += rotationSpeed/2;
+				//uranusPivot.rotation.y += rotationSpeed/84;
 				
 				neptuneMesh.castShadow = true;
 				neptuneMesh.receiveShadow = true;
 				neptuneRingMesh.castShadow = true;
 				neptuneRingMesh.receiveShadow = true;
-				neptuneMesh.rotation.y += rotationSpeed;
-				neptunePivot.rotation.y += rotationSpeed/164.8;
+				neptuneMesh.rotation.y += rotationSpeed/2;
+				//neptunePivot.rotation.y += rotationSpeed/164.8;
 				
 				plutoMesh.castShadow = true;
 				plutoMesh.receiveShadow = true;
 				plutoMesh.rotation.y += rotationSpeed;
-				plutoPivot.rotation.y += rotationSpeed/248;
+				//plutoPivot.rotation.y += rotationSpeed/248;
 				
 				
 				renderer.render(scene, camera);
