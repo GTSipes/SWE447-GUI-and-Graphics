@@ -11,6 +11,7 @@
   <script src="../Common/three.js"></script>
   <script src="../Common/OrbitControls.js"></script>
   <script src="../Common/threex.planets-master/threex.planets.js"></script>
+  <script src="XRingGeometry.js"></script>
   <div class"=slidecontainer">
   <input type="range" min = "0" max="0.5" value="0.01" step="0.005" id="speedSlider" orient="vertical" style="position:absolute">
   <span id="sliderSpeed"></span>
@@ -84,16 +85,24 @@ opacity: 1;
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
 			camera.position.set(100,100,0);
 			controls.keyPanSpeed = 25;
-			controls.minZoom = 10;
-			controls.maxZoom = 700;
+			controls.minZoom = 0;
+			controls.maxZoom = 400;
 			controls.zoomSpeed = 1;
 			controls.update();
+			document.addEventListener("keydown", onDocumentKeyDown, false);
+			function onDocumentKeyDown(event) {
+				var keyCode = event.which;
+				if(keyCode == 82){
+					camera.position.set(0,0,0);
+					}
+			}
+			
 			
 			//Lighting
 			var ambLight = new THREE.AmbientLight(0xffffff, 0.1);
 			scene.add(ambLight);
 			
-			var pointLight = new THREE.PointLight(0xffffff, 3, 400, 2);
+			var pointLight = new THREE.PointLight(0xffffff, 2, 700, 2);
 			pointLight.position.set(0,0,0);
 			pointLight.castShadow = true;
 			scene.add(pointLight);
@@ -221,7 +230,7 @@ opacity: 1;
 				//ASTEROID BELT//
 			var asteroidPivot1 = new THREE.Object3D();
 			sunMesh.add(asteroidPivot1);
-			var asteroidGeometry1 = new THREE.RingGeometry(100, 200, 200, 200);
+			var asteroidGeometry1 = new THREE.RingGeometry(130, 200, 200, 200);
 			var asteroidMaterial = new THREE.MeshBasicMaterial({
 				map			: loader.load('https://i.imgur.com/leeVdVz.png'),
 				side		: THREE.DoubleSide,
@@ -232,8 +241,6 @@ opacity: 1;
 			scene.add(asteroidMesh1);
 			asteroidMesh1.rotateX(1.5708);
 			asteroidPivot1.add(asteroidMesh1);
-			
-		
 			
 				//JUPITER//------------------------------------------------
 			var jupiterPivot = new THREE.Object3D();
@@ -257,17 +264,16 @@ opacity: 1;
 			var saturnMesh = new THREE.Mesh( saturnGeometry, saturnMaterial );
 			scene.add( saturnMesh );
 				//SATURN RING
-			var saturnRingGeometry = new THREE.RingGeometry(15, 30, 32);
+			var saturnRingGeometry = new THREE.XRingGeometry(15, 30, 32, 5, 0);
 			var saturnRingMaterial = new THREE.MeshBasicMaterial({
-				map			: loader.load('https://i.imgur.com/FMgPnUR.png'),
+				map			: loader.load('https://i.imgur.com/E7RyJ2N.png'),
 				side 		: THREE.DoubleSide,
 				transparent : true,
-				opacity 	: 1,
+				opacity 	: 0.6,
 				});
 			var saturnRingMesh = new THREE.Mesh(saturnRingGeometry,saturnRingMaterial);
 			scene.add(saturnRingMesh);
 			saturnRingMesh.castShadow = true;
-			saturnRingMesh.rotateX(1.5708);
 			saturnMesh.add(saturnRingMesh);
 			saturnMesh.position.x = -280;
 			saturnPivot.add(saturnMesh);
@@ -281,21 +287,20 @@ opacity: 1;
 				});
 			var uranusMesh = new THREE.Mesh( uranusGeometry, uranusMaterial );
 			scene.add( uranusMesh );
-			uranusMesh.rotateX(1.5708);
-				//Uranus RING
-			var uranusRingGeometry = new THREE.RingGeometry(7, 10, 32);
+				//URANUS RING
+			var uranusRingGeometry = new THREE.XRingGeometry(7, 14, 32, 5, 0);
 			var uranusRingMaterial = new THREE.MeshBasicMaterial({
-				map			: loader.load('https://i.imgur.com/FMgPnUR.png'),
+				map			: loader.load('https://i.imgur.com/E7RyJ2N.png'),
 				side 		: THREE.DoubleSide,
 				transparent : true,
-				opacity 	: 1,
+				opacity 	: 0.1,
 				});
 			var uranusRingMesh = new THREE.Mesh(uranusRingGeometry,uranusRingMaterial);
 			scene.add(uranusRingMesh);
 			uranusRingMesh.castShadow = true;
-			uranusRingMesh.rotateX(1.5708);
-			uranusRingMesh.rotateY(1.5708);
 			uranusMesh.add(uranusRingMesh);
+			uranusRingMesh.rotateX(1.5708);
+			uranusRingMesh.rotateZ(1.5708);
 			uranusMesh.position.x = -330;
 			uranusPivot.add(uranusMesh);
 			
@@ -309,18 +314,18 @@ opacity: 1;
 			var neptuneMesh = new THREE.Mesh( neptuneGeometry, neptuneMaterial );
 			scene.add( neptuneMesh );
 				//Neptune Rings
-			var neptuneRingGeometry = new THREE.RingGeometry(7, 10, 32);
+			var neptuneRingGeometry = new THREE.XRingGeometry(7, 14, 32, 5, 0);
 			var neptuneRingMaterial = new THREE.MeshBasicMaterial({
-				map			: loader.load('https://i.imgur.com/FMgPnUR.png'),
+				map			: loader.load('https://i.imgur.com/E7RyJ2N.png'),
 				side 		: THREE.DoubleSide,
 				transparent : true,
-				opacity 	: 1,
+				opacity 	: 0.1,
 				});
 			var neptuneRingMesh = new THREE.Mesh(neptuneRingGeometry,neptuneRingMaterial);
 			scene.add(neptuneRingMesh);
-			neptuneRingMesh.rotateX(1.5708);
+			neptuneRingMesh.castShadow = true;
 			neptuneMesh.add(neptuneRingMesh);
-			neptuneMesh.position.x = -370;
+			neptuneMesh.position.x = -380;
 			neptunePivot.add(neptuneMesh);
 				
 				//PLUTO//------------------------------------------------
@@ -332,11 +337,11 @@ opacity: 1;
 				bumpMap		: loader.load('https://i.imgur.com/Lhs25tu.jpg'),
 				bumpScale	: 2,
 				emissive	: 0xcccccc,
-				emissiveIntensity : 0.5,
+				emissiveIntensity : 1,
 				});
 			var plutoMesh = new THREE.Mesh(plutoGeometry, plutoMaterial);
 			scene.add(plutoMesh);
-			plutoMesh.position.x = -400;
+			plutoMesh.position.x = -420;
 			plutoPivot.add(plutoMesh);
 			
 			//RENDER//
